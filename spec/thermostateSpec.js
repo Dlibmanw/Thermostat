@@ -19,4 +19,33 @@ describe('Thermostat', function() {
         thermostat.down();
         expect(thermostat.getCurrentTemp()).toEqual(19);
     });
+
+    it('has a minimum of 10 degrees', function() {
+        for (var i = 0; i < 11; i++) {
+          thermostat.down();
+        }
+        expect(thermostat.getCurrentTemp()).toEqual(10);
+      });
+
+    it('if saving mode is on, the max temp is 25 desgrees', function(){
+        for (var i = 0; i < 6; i++) {
+            thermostat.up();
+        }
+        expect(thermostat.getCurrentTemp()).toEqual(25);
+    });
+    
+    it('has a power save mode on by default', function() {
+        expect(thermostat.isSaveModeOn()).toBe(true);
+        });
+    
+    it('can switch off the power save mode', function() {
+        thermostat.turnOffSaveMode();
+        expect(thermostat.isSaveModeOn()).toBe(false);
+    });
+
+    it('can switch on the power save mode', function(){
+        thermostat.turnOffSaveMode();
+        thermostat.turnOnSaveMode();
+        expect(thermostat.SaveMode).toBe(true);
+    });
 });
