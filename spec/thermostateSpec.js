@@ -27,16 +27,25 @@ describe('Thermostat', function() {
         expect(thermostat.getCurrentTemp()).toEqual(10);
       });
 
-    it('if saving mode is on, the max temp is 25 desgrees', function(){
+    it('if saving mode is on, the max temp is 25 desgrees', function() {
         for (var i = 0; i < 6; i++) {
             thermostat.up();
         }
-        expect(thermostat.getCurrentTemp()).toEqual(25);
+        expect(thermostat.getCurrentTemp()).toEqual(25)
+    });
+
+    it('if saving mode is off, the max temp is 32 desgrees', function() {
+        thermostat.turnOffSaveMode();
+        this.SaveMode = false;
+        for (var i = 0; i < 14; i++) {  
+            thermostat.up();
+        }    
+        expect(thermostat.getCurrentTemp()).toEqual(32)
     });
     
     it('has a power save mode on by default', function() {
         expect(thermostat.isSaveModeOn()).toBe(true);
-        });
+    });
     
     it('can switch off the power save mode', function() {
         thermostat.turnOffSaveMode();
