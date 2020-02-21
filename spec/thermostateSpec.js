@@ -15,7 +15,7 @@ describe('Thermostat', function() {
         expect(thermostat.getCurrentTemp()).toEqual(21);
     });
 
-    it('allows the user to decrease the temperature with #decrease', function(){
+    it('allows the user to decrease the temperature with #down', function(){
         thermostat.down();
         expect(thermostat.getCurrentTemp()).toEqual(19);
     });
@@ -56,5 +56,29 @@ describe('Thermostat', function() {
         thermostat.turnOffSaveMode();
         thermostat.turnOnSaveMode();
         expect(thermostat.SaveMode).toBe(true);
+    });
+
+    it('let you reset the temperature to 20 with #reset', function(){
+        thermostat.reset();
+        expect(thermostat.getCurrentTemp()).toEqual(20)
+    });
+
+    describe('presents energy level usage', function(){
+        describe('energy usage when temp is lower than 18', function(){
+            it('return low-usage when temp is less than 18', function(){
+                for (var i = 0; i < 3; i++) {
+                    thermostat.down();
+                }
+                expect(thermostat.energyUsage()).toEqual('low-usage')
+            });
+        });
+        describe('energy usage when temp is higher than 25', function(){
+            it('return high-usage when temp is over 25', function(){
+                for (var i = 0; i < 10; i++) {
+                    thermostat.up();
+                }
+                expect(thermostat.energyUsage()).toEqual('high-usage')
+            });
+        });
     });
 });

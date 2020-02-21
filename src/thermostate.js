@@ -1,9 +1,11 @@
 function Thermostat(){
-    this.temperature = 20;
+    this.DefaultTemp = 20;
+    this.temperature = this.DefaultTemp;
     this.MinimumTemp = 10;
     this.SaveMode = true;
     this.MaxTempSaveModeOn = 25;
     this.MaxTempSaveModeOff = 32;
+    this.DefaultTemp = 20
 
 
 Thermostat.prototype.getCurrentTemp = function() {
@@ -41,5 +43,20 @@ Thermostat.prototype.down = function() {
 
 Thermostat.prototype.turnOnSaveMode = function() {
     this.SaveMode = true;
+};
+
+Thermostat.prototype.reset = function(){
+    this.temperature = this.DefaultTemp
+};
+
+Thermostat.prototype.energyUsage = function(){
+    if (this.getCurrentTemp() <= 18) {
+        return 'low-usage';
+    }
+    else if (this.getCurrentTemp() >= this.MaxTempSaveModeOn
+    ) {
+        return 'high-usage';
+    }
+    return 'medium-usage';
 };
 };
